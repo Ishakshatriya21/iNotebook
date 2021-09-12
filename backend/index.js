@@ -1,0 +1,22 @@
+const connectToMongo = require('./db');
+const express = require('express');
+
+connectToMongo();
+const app = express();
+const port = 3000;
+
+//This commented code below is also known as a route/path
+// app.get('/', (req,res)=>{
+//     res.send("Hello World!")
+// })
+
+//express.json will allow us to send request body content as middleware
+app.use(express.json());
+
+//Adding routes from the routes folder:
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/notes', require('./routes/notes'));
+
+app.listen(port, ()=>{
+    console.log(`Example app listening at http://localhost:${port}`)
+})
