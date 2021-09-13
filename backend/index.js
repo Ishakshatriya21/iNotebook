@@ -3,7 +3,7 @@ const express = require('express');
 
 connectToMongo();
 const app = express();
-const port = 3000;
+const port = 5000;
 
 //This commented code below is also known as a route/path
 // app.get('/', (req,res)=>{

@@ -20,6 +20,11 @@ const UserSchema = new Schema({
         default: Date.now
     }
 });
+
 const User = mongoose.model('user', UserSchema);
-User.createIndexes();
+
+//here email is unique: true so we have created an index corresponding to it and therefore no entries with duplicate email will be allowed in the database:-
+// User.createIndexes();
+//we will create similar logic of no duplicate email entries in db in auth.js
+
 module.exports = User;
