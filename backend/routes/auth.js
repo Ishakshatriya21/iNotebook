@@ -26,7 +26,7 @@ router.post('/createuser', [
             return res.status(400).json({ Error: 'User with this email already exist' })
         }
         //.genSalt will generate a salt, we are not going to store salt in our db as bcrypt works sort of different way | it returns a promise so we use wait here
-        const salt = await bcrypt.genSalt(10); 
+        const salt = await bcrypt.genSalt(10);
         //.hash will convert our password+salt into hash code | returns a promise so we use wait here
         const secPass = await bcrypt.hash(req.body.password, salt)
         //creating a user
@@ -48,11 +48,49 @@ router.post('/createuser', [
         const authToken = jwt.sign(data, JWT_SECRET);
         console.log(authToken);
         // res.json(user);
-        res.json({authToken});
+        res.json({ authToken });
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Some error occurred");
+        res.status(500).send("Internal server error");
     }
 })
 
+//Authenticate a user using: POST 'api/auth/login'. No login required
+router.post('/login', [
+    body('email', 'Enter a valid email').isEmail(),
+    body('password', 'Password cannot be blank').exists()
+], async (req, res) => {
+
+    // if there are errors, return Bad request and the errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    const { email, password } = req.body;
+    try {
+        let user = await User.findOne({ email });
+        if (!User) {
+            return res.status(400).json({ error: "Please login with correct credentials" });
+        }
+
+        const passwordCompare = await bcrypt.compare(password, user.password);
+        if (!passwordCompare) {
+            return res.status(400).json({ error: "Please login with correct credentials" });
+        }
+
+        //data will be a unique key which will be passed for jwt token creation.
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+        //this function will create a jwt token. It is a synchronous function, therefore we need not to use await here.
+        const authToken = jwt.sign(data, JWT_SECRET);
+        res.json({ authToken });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal server error");
+    }
+
+})
 module.exports = router;
