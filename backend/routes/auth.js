@@ -4,11 +4,12 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchUser');
 
 //JWT_SECRET will be passed for jwt token creation. It will be the part of the jwt which will help us to verify if the token is tempered
 const JWT_SECRET = 'Utsav#$%Soni';
 
-//create a user using: POST '/api/auth/createuser'. No login required
+//ROUTE 1: create a user using: POST '/api/auth/createuser'. No login required
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('email').isEmail(),
@@ -55,7 +56,7 @@ router.post('/createuser', [
     }
 })
 
-//Authenticate a user using: POST 'api/auth/login'. No login required
+//ROUTE 2: Authenticate a user using: POST 'api/auth/login'. No login required
 router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists()
@@ -93,4 +94,17 @@ router.post('/login', [
     }
 
 })
+
+//ROUTE 3: Get loggedIn User details using: POST "/api/auth/getuser". Login required
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        //if jwt verification succeeds, req.user will contain the user details from fetchuser.js
+        const userId = req.user.id;
+        const user = await User.findById(userId).select("-password");
+        res.send(user);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal server error");
+    }
+});
 module.exports = router;
