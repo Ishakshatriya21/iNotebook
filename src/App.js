@@ -1,5 +1,6 @@
 import './App.css';
 import Home from './components/Home';
+import Alert from './components/Alert';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import About from './components/About';
@@ -12,6 +13,7 @@ function App() {
       <NoteState>
         <Router>
           <Navbar />
+          <Alert message="This is an alert"/>
           <div className="container">
             <Switch>
               <Route exact path="/">
