@@ -40,6 +40,69 @@ const NoteState = (props) => {
             "__v": 0
         },
         {
+            "_id": "61422d09e28cff8f674313fe",
+            "user": "613f66ebe53f7721ba5d36f1",
+            "title": "my title",
+            "description": "This is description",
+            "tag": "Personal",
+            "date": "2021-09-15T17:27:37.796Z",
+            "__v": 0
+        },
+        {
+            "_id": "61422d09e28cff8f674313fe",
+            "user": "613f66ebe53f7721ba5d36f1",
+            "title": "my title",
+            "description": "This is description",
+            "tag": "Personal",
+            "date": "2021-09-15T17:27:37.796Z",
+            "__v": 0
+        },
+        {
+            "_id": "61422d09e28cff8f674313fe",
+            "user": "613f66ebe53f7721ba5d36f1",
+            "title": "my title",
+            "description": "This is description",
+            "tag": "Personal",
+            "date": "2021-09-15T17:27:37.796Z",
+            "__v": 0
+        },
+        {
+            "_id": "61422d09e28cff8f674313fe",
+            "user": "613f66ebe53f7721ba5d36f1",
+            "title": "my title",
+            "description": "This is description",
+            "tag": "Personal",
+            "date": "2021-09-15T17:27:37.796Z",
+            "__v": 0
+        },
+        {
+            "_id": "61422d09e28cff8f674313fe",
+            "user": "613f66ebe53f7721ba5d36f1",
+            "title": "my title",
+            "description": "This is description",
+            "tag": "Personal",
+            "date": "2021-09-15T17:27:37.796Z",
+            "__v": 0
+        },
+        {
+            "_id": "61422d09e28cff8f674313fe",
+            "user": "613f66ebe53f7721ba5d36f1",
+            "title": "my title",
+            "description": "This is description",
+            "tag": "Personal",
+            "date": "2021-09-15T17:27:37.796Z",
+            "__v": 0
+        },
+        {
+            "_id": "61422d09e28cff8f674313fe",
+            "user": "613f66ebe53f7721ba5d36f1",
+            "title": "my title",
+            "description": "This is description",
+            "tag": "Personal",
+            "date": "2021-09-15T17:27:37.796Z",
+            "__v": 0
+        },
+        {
             "_id": "61422d906ec267df81d43a23",
             "user": "613f66ebe53f7721ba5d36f1",
             "title": "my title",
@@ -54,7 +117,7 @@ const NoteState = (props) => {
     return (
         //anything wrapped in <noteState> </noteState> in app.js or any other component will have access to all the states, even the components childrens (down the hiearchy)
         //We can pass state, functions etc using context hook
-        <noteContext.Provider value={{notes, setNotes}}>
+        <noteContext.Provider value={{ notes, setNotes }}>
             {props.children}
         </noteContext.Provider>
     )
