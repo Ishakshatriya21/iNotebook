@@ -15,7 +15,7 @@
 // export default NoteState;
 
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import noteContext from "./noteContext";
 
 const NoteState = (props) => {
@@ -116,7 +116,7 @@ const NoteState = (props) => {
 
     //Add a note
     const addNote = (title, description, tag) => {
-        //TODO API call
+        //TODO API CALL
         let note = {
             "_id": "61422d906ec67df81d43a23",
             "user": "613f66ebe53f7721ba5d36f1",
@@ -130,11 +130,13 @@ const NoteState = (props) => {
         setNotes(notes.concat(note)); //concat returns a new array
     }
     //Delete a note
-    const deleteNote = () => {
-
+    const deleteNote = (id) => {
+        //TODO API CALL
+        const newNotes = notes.filter((note)=>{return note._id!==id})
+        setNotes(newNotes);
     }
     //Edit a note
-    const editNote = () => {
+    const editNote = (id, title, description, tag) => {
 
     }
 
