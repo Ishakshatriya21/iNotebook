@@ -7,7 +7,6 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Add notes</h1>
             <Notes/>
         </div>
     )
