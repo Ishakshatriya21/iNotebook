@@ -6,7 +6,7 @@ import NoteItem from './NoteItem';
 export default function Notes() {
     const context = useContext(noteContext);
     const { notes, getNotes, editNote } = context;
-    const [note, setNote] = useState({id: "", title:"", description:"", tag:""})
+    const [note, setNote] = useState({ id: "", title: "", description: "", tag: "" })
 
     useEffect(() => {
         getNotes();
@@ -15,20 +15,20 @@ export default function Notes() {
 
     const updateNote = (currentNote) => {
         ref.current.click();
-        setNote({id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag});
+        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
     }
 
     const ref = useRef(null)
     const refClose = useRef(null)
 
-    const handleClick = (e)=>{
+    const handleClick = (e) => {
         editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
     }
 
-    const onChange = (e)=>{
+    const onChange = (e) => {
         //this syntax below means that keep the default value of note state and then overwrite the further values if provided.
-        setNote({...note, [e.target.name]: e.target.value})
+        setNote({ ...note, [e.target.name]: e.target.value })
     }
 
     return (
@@ -74,6 +74,9 @@ export default function Notes() {
 
             </div>
             <h1>Your notes</h1>
+            <div className="contianer mx-1">
+                {notes.length === 0 && 'No notes to display'}
+            </div>
             <div className="row">
                 {notes.map((note) => {
                     return <NoteItem key={note._id} updateNote={updateNote} note={note} />

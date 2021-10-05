@@ -47,18 +47,7 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
-        const json = await response.json();
-        console.log(json);
-
-        let note = {
-            "_id": "61422d906ec67df81d43a23",
-            "user": "613f66ebe53f7721ba5d36f1",
-            "title": title,
-            "description": description,
-            "tag": tag,
-            "date": "2021-09-15T17:29:52.027Z",
-            "__v": 0
-        };
+        const note = await response.json()
         // setNotes(notes.push(note));   this will not work as push updates the array but our array is defined as const
         setNotes(notes.concat(note)); //concat returns a new array
     }
