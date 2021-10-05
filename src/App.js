@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import About from './components/About';
 import NoteState from './Contexts/notes/noteState';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 
 function App() {
@@ -21,6 +23,12 @@ function App() {
               </Route>
               <Route exact path="/about">
                 <About />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/signup">
+                <Signup />
               </Route>
             </Switch>
           </div>

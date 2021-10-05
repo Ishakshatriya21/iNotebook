@@ -70,13 +70,14 @@ router.post('/login', [
     const { email, password } = req.body;
     try {
         let user = await User.findOne({ email });
+        let success = false;
         if (!User) {
-            return res.status(400).json({ error: "Please login with correct credentials" });
+            return res.status(400).json({success, error: "Please login with correct credentials" });
         }
 
         const passwordCompare = await bcrypt.compare(password, user.password);
         if (!passwordCompare) {
-            return res.status(400).json({ error: "Please login with correct credentials" });
+            return res.status(400).json({success,  error: "Please login with correct credentials" });
         }
 
         //data will be a unique key which will be passed for jwt token creation.
@@ -86,8 +87,9 @@ router.post('/login', [
             }
         }
         //this function will create a jwt token. It is a synchronous function, therefore we need not to use await here.
+        success = true;
         const authToken = jwt.sign(data, JWT_SECRET);
-        res.json({ authToken });
+        res.json({success,  authToken });
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal server error");
