@@ -1,15 +1,19 @@
 import React, {useContext, useState} from 'react'
 import noteContext from '../Contexts/notes/noteContext'
+import alertContext from '../Contexts/alert/alertContext'
 
 export default function AddNote() {
     const context = useContext(noteContext);
     const {addNote} = context;
     const [note, setNote] = useState({title:"", description:"", tag:""})
 
+    const { showAlert } = useContext(alertContext);
+
     const handleClick = (e)=>{
         e.preventDefault(); //this will prevent reloading of the page on click
         addNote(note.title, note.description, note.tag);
         setNote({title:"", description:"", tag:""});
+        showAlert("success", "Note Added Successfully!")
     }
 
     const onChange = (e)=>{

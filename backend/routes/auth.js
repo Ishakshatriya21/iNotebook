@@ -54,7 +54,7 @@ router.post('/createuser', [
         res.json({success, authToken });
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Internal server error");
+        res.status(500).json({success, error: "Internal server error"});
     }
 })
 
@@ -63,11 +63,11 @@ router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists()
 ], async (req, res) => {
-
+    let success = false;
     // if there are errors, return Bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({success, errors: errors.array() });
     }
     const { email, password } = req.body;
     try {
@@ -94,21 +94,23 @@ router.post('/login', [
         res.json({success,  authToken });
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Internal server error");
+        res.status(500).json({success, error: "Internal server error"});
     }
 
 })
 
 //ROUTE 3: Get loggedIn User details using: POST "/api/auth/getuser". Login required
 router.post('/getuser', fetchuser, async (req, res) => {
+    let success = true;
     try {
         //if jwt verification succeeds, req.user will contain the user details from fetchuser.js
         const userId = req.user.id;
         const user = await User.findById(userId).select("-password");
         res.send(user);
     } catch (error) {
+        success = false;
         console.error(error.message);
-        res.status(500).send("Internal server error");
+        res.status(500).json({success, error: "Internal server error"});
     }
 });
 module.exports = router;

@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom';
+import alertContext from '../Contexts/alert/alertContext'
 
 function Signup() {
+    const context = useContext(alertContext);
+    const { showAlert } = context;
     const [creds, setCreds] = useState({name: "", email: "", password: "", cpassword: ""})
     let history = useHistory();
 
@@ -20,9 +23,11 @@ function Signup() {
             //saving token and redirecting to home using useHistory hook
             localStorage.setItem("token", json.authToken)
             history.push('/');
+            showAlert("success", "User created successfully");
         }
         else{
             alert("Error occured");
+            showAlert("danger", "Invalid details");
         }
     }
 

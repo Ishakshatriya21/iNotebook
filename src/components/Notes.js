@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import noteContext from '../Contexts/notes/noteContext'
+import alertContext from '../Contexts/alert/alertContext'
 import AddNote from './AddNote';
 import NoteItem from './NoteItem';
 
@@ -7,6 +8,8 @@ export default function Notes() {
     const context = useContext(noteContext);
     const { notes, getNotes, editNote } = context;
     const [note, setNote] = useState({ id: "", title: "", description: "", tag: "" })
+
+    const { showAlert } = useContext(alertContext);
 
     useEffect(() => {
         getNotes();
@@ -24,6 +27,7 @@ export default function Notes() {
     const handleClick = (e) => {
         editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
+        showAlert("success", "Note Updated Successfully!")
     }
 
     const onChange = (e) => {
