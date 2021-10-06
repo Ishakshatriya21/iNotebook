@@ -35,21 +35,22 @@ function Signup() {
         setCreds({...creds, [e.target.name]: e.target.value})
     }
     return (
-        <div className="container">
+        <div className="container mt-5">
+            <h2 className="mb-3">SignUp to use iNotebook</h2>
             <form onSubmit={handleSubmit} >
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label htmlFor="Name">Name</label>
                     <input type="text" name="name" className="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name" onChange={onChange} required />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label htmlFor="email">Email address</label>
                     <input type="email" name="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" onChange={onChange} required />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" className="form-control" id="password" placeholder="Password" onChange={onChange} required minLength='5' />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label htmlFor="cpassword">Confirm Password</label>
                     <input type="password" name="cpassword" className="form-control" id="cpassword" placeholder="Re-enter Password" onChange={onChange} required minLength='5' />
                 </div>

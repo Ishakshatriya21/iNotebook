@@ -3,6 +3,7 @@ import noteContext from '../Contexts/notes/noteContext'
 import alertContext from '../Contexts/alert/alertContext'
 import AddNote from './AddNote';
 import NoteItem from './NoteItem';
+import { useHistory } from 'react-router-dom';
 
 export default function Notes() {
     const context = useContext(noteContext);
@@ -11,8 +12,15 @@ export default function Notes() {
 
     const { showAlert } = useContext(alertContext);
 
+    let history = useHistory();
+
     useEffect(() => {
-        getNotes();
+        if(localStorage.getItem('token')){
+            getNotes();
+        }
+        else{
+            history.push("/login")
+        }
         // eslint-disable-next-line
     }, [])
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 
 export default function Navbar() {
     //useLocation hook returns us an object of location information of current event
@@ -8,6 +8,13 @@ export default function Navbar() {
     // useEffect(() => {
     //     console.log(location.pathname);
     // }, [location])
+
+    let history = useHistory();
+
+    const handleLogout = ()=>{
+        localStorage.removeItem('token');
+        history.push('/login');
+    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,10 +33,10 @@ export default function Navbar() {
                             <Link className="nav-link" to="/about">About</Link>
                         </li>
                     </ul>
-                    <form className="d-flex">
+                   {!localStorage.getItem('token')? <form className="d-flex">
                         <Link to="/login" role="button" className="btn btn-primary mx-2 loginBTN">Login</Link>
                         <Link to="/signup" role="button" className="btn btn-primary loginBTN">Sign Up</Link>
-                    </form>
+                    </form> : <button onClick={handleLogout} className="btn btn-primary loginBTN">Logout</button> }
                 </div>
             </div>
         </nav>

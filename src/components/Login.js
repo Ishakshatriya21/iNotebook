@@ -35,17 +35,20 @@ function Login(props) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label htmlFor="email">Email address</label>
-                <input type="email" value={creds.email} onChange={onChange} name="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" />
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input type="password" value={creds.password} onChange={onChange} name="password" className="form-control" id="password" placeholder="Password" />
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
+        <div className="container mt-5"> 
+        <h2 className="mb-3">Login to continue to iNotebook</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group mb-3">
+                    <label htmlFor="email">Email address</label>
+                    <input type="email" value={creds.email} onChange={onChange} name="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" />
+                </div>
+                <div className="form-group mb-3">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" value={creds.password} onChange={onChange} name="password" className="form-control" id="password" placeholder="Password" />
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+        </div>
     )
 }
 

@@ -14,7 +14,7 @@ export default function Alert(props) {
     }
     return (
         //as alert is null by default, we cannot read its type and msg value which throws an error so we use && operator which will work like if alert is null then further jsx will not get executed
-       alert && <div className={`alert alert-${alert.type}`} role="alert">
+       alert && <div className={`alert alert-${alert.type} position-absolute`} role="alert">
             <strong>{capitalize(alert.type)}</strong>: {alert.msg}
         </div>
     )
