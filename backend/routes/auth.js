@@ -15,16 +15,17 @@ router.post('/createuser', [
     body('email').isEmail(),
     body('password').isLength({ min: 5 })
 ], async (req, res) => {
+    let success = false;
     // if there are errors, return Bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({success, errors: errors.array() });
     }
     //check whether the user with this email exists already
     try {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ Error: 'User with this email already exist' })
+            return res.status(400).json({success,  Error: 'User with this email already exist' })
         }
         //.genSalt will generate a salt, we are not going to store salt in our db as bcrypt works sort of different way | it returns a promise so we use wait here
         const salt = await bcrypt.genSalt(10);
@@ -45,11 +46,12 @@ router.post('/createuser', [
                 id: user.id
             }
         }
+        success = true;
         //this function will create a jwt token. It is a synchronous function, therefore we need not to use await here.
         const authToken = jwt.sign(data, JWT_SECRET);
         console.log(authToken);
         // res.json(user);
-        res.json({ authToken });
+        res.json({success, authToken });
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal server error");
